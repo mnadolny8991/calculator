@@ -9,7 +9,7 @@
 }
 
 .container {
-    width: 40%;
+    width: fit-content;
     margin: auto;
     margin-top: 5rem;
     padding: 1rem;
@@ -21,13 +21,27 @@
 }
 
 .keyboard {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.keyboard__basic {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: repeat(4, auto);
+    gap: 0.5rem; 
+}
+
+.keyboard__advanced {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 0.5rem; 
 }
 
 .keyboard__button {
-    padding: 1rem;
+    width: 50px;
+    height: 40px;
     font-size: 15px;
 
     background-color: rgb(150, 150, 150);
@@ -57,7 +71,7 @@
 }
 
 .display {
-    height: 100px;
+    height: 150px;
     margin-bottom: 1rem;
 
     border: 1px solid rgb(150, 150, 150);
@@ -77,22 +91,28 @@
     align-self: flex-end;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 1rem;
     position: absolute;
     right: 1rem;
     z-index: 1;
+    max-width: 300px;
 }
 
 .display__input {
-    height: 20px;
+    width: fit-content;
+    align-self: self-end;
     font-size: 25px;
     text-align: right;
     border-bottom: 1px solid gray;
-    padding: 1rem;
+    min-width: 1rem;
+    overflow-x: clip;
+    max-width: 300px;
 }
 
 .display__ans {
     text-align: right;
+    overflow-x: scroll; 
 }
 
 .display__ans-history {
@@ -117,7 +137,7 @@
     background-color: lightgray;
     overflow-y: scroll;
     max-height: 100px;
-    min-width: 20vw;
+    min-width: 200px;
     color: white;
     font-size: 20px;
 }
@@ -137,4 +157,22 @@
 
 .display__ans-list-entry:active {
    
+}
+
+@media (max-width: 800px) {
+    .keyboard {
+        flex-direction: column-reverse;
+    }
+
+    .keyboard__advanced {
+        grid-template-columns: repeat(4, auto);
+    }
+
+    .display__group {
+        max-width: 120px;
+    }
+
+    .display__input {
+        max-width: 150px;
+    }
 }

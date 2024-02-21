@@ -1,10 +1,12 @@
 function Keyboard(prop) {
-	const signs = [
-			"Rad", "Deg", "!", "(", ")", "%", "CE",
-			"Inv", "sin", "ln", "7", "8", "9", "÷", 
-			"π", "cos", "log", "4", "5", "6", "×", "e",
-			"tan", "√", "1", "2", "3", "-", "Ans", "EXP",
-			"^", "0", ".", "=", "+",
+	const basic = [
+		"(", ")", "%", "CE", 
+		"7", "8", "9", "÷", "4", "5", "6","×",
+		"1", "2", "3", "-", "0", ".", "=", "+"];
+	const advanced = [
+		"deg", "!", "Inv", "sin", "ln", "π", 
+		"cos", "log", "e", "tan", "√",  "^",
+		"Ans"
 	];
 
 	function getMarkup(sign) {
@@ -14,12 +16,7 @@ function Keyboard(prop) {
 			className={
 				`keyboard__button` +
 				` ${(!isNaN(sign) || sign === ".") && "keyboard__button--numeric"}` +
-				` ${sign === "=" && "keyboard__button--blue"}` +
-				` ${
-					String(sign).toLowerCase() === prop.angleFormat &&
-					"keyboard__button--blue"
-				}` +
-				` ${(sign === "AC" || sign === "CE") && "keyboard__button--blue"}`
+				` ${(sign === "=" || sign === "AC" || sign === "CE") && "keyboard__button--blue"}`
 			}
 			value={sign}>
 			{sign === "CE" ? (prop.answerRdy ? "AC" : sign) : sign}
@@ -27,7 +24,15 @@ function Keyboard(prop) {
 		);
 	}
 	const buttons = (
-		<div className="keyboard">{signs.map((sign) => getMarkup(sign))}</div>
+		// <div className="keyboard">{signs.map((sign) => getMarkup(sign))}</div>
+		<div className="keyboard">
+			<section className="keyboard__advanced">
+				{advanced.map(key => getMarkup(key))}
+			</section>
+			<section className="keyboard__basic">
+				{basic.map(key => getMarkup(key))}
+			</section>	
+		</div>
 	);
 
   	return buttons;

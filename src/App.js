@@ -11,10 +11,14 @@ function App() {
 function Calculator() {
 	const [tokens, setTokens] = useState([]);
 	const [expression, setExpression] = useState("");
-	const [angleFormat, setAngleFormat] = useState("Rad");
 	const [answerRdy, setAnswerRdy] = useState(false);
 	const [prevAns, setPrevAns] = useState("");
 	const [history, setHistory] = useState([]);
+	const [displayList, setDisplayList] = useState(false);
+
+    function handleImgClick() {
+        setDisplayList(!displayList);
+    }
 
 	function handlePrevEntryClick(event) {
 		const exp = event.target.innerHTML;
@@ -24,8 +28,10 @@ function Calculator() {
 			if (copy === true) val += character;
 			if (character === "=") copy = true;
 		}
+		setDisplayList(false);
 		setExpression(val);
 		setTokens([val]);
+		setAnswerRdy(true);
 	}
 
 	function correct(expr) {
@@ -88,14 +94,6 @@ function Calculator() {
 				setTokens(tokens.slice(0, -1));
 			return;
 		}
-		if (curr === "Deg") {
-			setAngleFormat("deg");
-			return;
-		}
-		if (curr === "Rad") {
-			setAngleFormat("rad");
-			return;
-		}
 
 		setTokens((prev) => [...prev, curr]);
 		setExpression([...expression, curr].join(""));
@@ -106,10 +104,11 @@ function Calculator() {
 			<Display expression={expression} 
 					 prevAns={prevAns} 
 					 history={history} 
-					 handlePrevEntryClick={handlePrevEntryClick}/>
+					 displayList={displayList}
+					 handlePrevEntryClick={handlePrevEntryClick}
+					 handleImgClick={handleImgClick}/>
 			<Keyboard
 				handleClick={handleClick}
-				angleFormat={angleFormat}
 				answerRdy={answerRdy}
 			/>
 		</div>

@@ -1,12 +1,6 @@
 import history_image from "./history.png"
-import { useState } from "react";
 
 function Display(prop) {
-    const [displayList, setDisplayList] = useState(false);
-
-    function handleImgClick() {
-        setDisplayList(!displayList);
-    }
 
     return (
         <div className="display">
@@ -16,9 +10,9 @@ function Display(prop) {
                     src={history_image}
                     width="25px"
                     alt="history"
-                    onClick={handleImgClick}
+                    onClick={prop.handleImgClick}
                 />
-                {displayList && 
+                {prop.displayList && 
                     <ul className="display__ans-list">
                         {prop.history.length > 0 && 
                             prop.history.map(entry => 
@@ -32,7 +26,7 @@ function Display(prop) {
             
             <div className="display__group">
                 <div className="display__ans">{"Ans = " + prop.prevAns}</div>
-                <div className="display__input">{prop.expression}</div>
+                <div className="display__input" >{prop.expression}</div>
             </div>
         </div>
     );
